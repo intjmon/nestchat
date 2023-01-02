@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index') // views안에 index.hbs를 말함 idx.hbs라면 idx가 돼야함
+  root() {
+    return {
+      data: {
+        title: 'chatting',
+        copyright: 'jw',
+      },
+    };
   }
 }
