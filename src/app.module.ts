@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NestModule } from '@nestjs/common/interfaces/modules';
-import { ChatsGateway } from './chats/chats.gateway';
 import { ChatsModule } from './chats/chats.module';
 import * as mongoose from 'mongoose';
 
@@ -19,7 +18,6 @@ import * as mongoose from 'mongoose';
     ChatsModule,
   ],
   controllers: [AppController],
-  providers: [ChatsGateway],
 })
 export class AppModule implements NestModule {
   configure() {
