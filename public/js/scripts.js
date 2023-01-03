@@ -1,3 +1,5 @@
+const socket = io('/'); // io() 는 index.hbs의 soceket.io.min.js에서 제공하는 함수
+
 const getElementById = (id) => document.getElementById(id) || null;
 
 const helloStrangerElement = getElementById('hello_stranger');
