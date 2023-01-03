@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NestModule } from '@nestjs/common/interfaces/modules';
 import * as mongoose from 'mongoose';
 
-//console.log('MONGODB::::', process.env.MONGODB_URI);
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,8 +13,6 @@ import * as mongoose from 'mongoose';
     MongooseModule.forRoot(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
     }),
   ],
   controllers: [AppController],
@@ -23,7 +20,6 @@ import * as mongoose from 'mongoose';
 })
 export class AppModule implements NestModule {
   configure() {
-    console.log('MONGODB::::', process.env.MONGODB_URI);
     const DEBUG = process.env.MODE === 'dev' ? true : false;
     mongoose.set('debug', DEBUG);
   }
