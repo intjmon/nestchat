@@ -8,7 +8,7 @@ export class AppController {
     return {
       data: {
         title: 'chatting',
-        copyright: 'jw',
+        copyright: 'jw.fs@gmail.com',
       },
     };
   }
