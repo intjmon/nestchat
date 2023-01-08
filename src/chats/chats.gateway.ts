@@ -42,7 +42,6 @@ export class ChatsGateway
       `disconnect -> sid:${socket.id}, ip:${socket.handshake.address}, namespace:${socket.nsp.name}`,
     );
   }
-
   handleConnection(@ConnectedSocket() socket: Socket) {
     this.logger.log(
       `WebSocketGateway connect -> sid:${socket.id}, ip:${socket.handshake.address}, namespace:${socket.nsp.name}`,
