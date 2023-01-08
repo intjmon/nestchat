@@ -17,7 +17,7 @@ const handleSubmit = (event) => {
   const inputValue = event.target.elements[0].value; // formElement[0]은 input 태그를 의미
   if (inputValue !== '') {
     socket.emit('submit_chat', inputValue); // send_msg 이벤트를 발생시키고 서버로 데이터를 전송
-    drawNewChat(`me: ${inputValue}`);
+    drawNewChat(`me: ${inputValue}`, true);
     event.target.elements[0].value = '';
   }
 };
@@ -43,29 +43,18 @@ socket.on('user_connected', (username) => { // user_connected 이벤트를 받�
 const drawHelloStranger = (username) =>
   (helloStrangerElement.innerText = `Hello ${username} :)`);
 
-/*
-const drawNewChat = (message, isMe = false) => {
-const wrapperChatBox = document.createElement('div');
-wrapperChatBox.classNAme = 'clearfix';
-let chatBox;
-if (!isMe) {
-  chatBox = `<div class="bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg clear-fix break-all"> ${message} </div>`;
-} else {
-  chatBox = `<div class="bg-white w-3/4 ml-auto mr-4 my-2 p-2 rounded-lg clear-fix break-all"> ${message} </div>`;
-}
-wrapperChatBox.innerHTML = chatBox;
-chattingBoxElement.append(wrapperChatBox);
-};
-*/
 const drawNewChat = (message, isMe = false) => {
   const wrapperChatBox = document.createElement('div');
-  wrapperChatBox.classNAme = 'clearfix';
+  wrapperChatBox.className = 'clearfix';
   let chatBox;
-  chatBox = `<div> ${message} </div>`;
+  if (!isMe) {
+    chatBox = `<div class='bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg clearfix break-all'> ${message} </div>`;
+  } else {
+    chatBox = `<div class='bg-white w-3/4 ml-auto mr-4 my-2 p-2 rounded-lg clearfix break-all'> ${message} </div>`;
+  }
   wrapperChatBox.innerHTML = chatBox;
   chattingBoxElement.append(wrapperChatBox);
 };
-
 
 function helloUser() {
   const username = prompt('what is your name?');
