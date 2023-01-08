@@ -39,14 +39,14 @@ export class ChatsGateway
     this.logger.log('WebSocketGateway AfterInit');
   }
 
-  @SubscribeMessage('new_user')
+  @SubscribeMessage('new_user') // new_user라는 이벤트를 받으면 handleNewUser 함수를 실행
   handleNewUser(
     @MessageBody() username: string,
     @ConnectedSocket() socket: Socket,
   ) {
     console.log(socket.id);
     console.log(username);
-    socket.emit('hello_user', 'hello ' + username);
-    return 'hello world';
+    //   socket.broadcast.emit('user_connected : ',  username);
+    return username;
   }
 }
