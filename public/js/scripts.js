@@ -10,13 +10,15 @@ const helloStrangerElement = getElementById('hello_stranger');
 const chattingBoxElement = getElementById('chatting_box');
 const formElement = getElementById('chat_form');
 
+// 
+const drawHelloStranger = (username) =>
+  (helloStrangerElement.innerText = `Hello ${username} :)`);
+
+
 function helloUser() {
   const username = prompt('what is your name?');
-  socket.emit('new_user', username, (data) => {
-    console.log(data);
-  });
-  socket.on('hello_user', data => {
-    console.log(data);
+  socket.emit('new_user', username, (data) => { // new_user 이벤트를 발생시키고 서버로 데이터를 전송
+    drawHelloStranger(data);
   });
 }
 
