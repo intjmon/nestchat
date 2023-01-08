@@ -46,7 +46,7 @@ export class ChatsGateway
   ) {
     console.log(socket.id);
     console.log(username);
-    //   socket.broadcast.emit('user_connected : ',  username);
+    socket.broadcast.emit('user_connected', username); // 모든 사용자에게 브로드캐스팅
     return username;
   }
 }
