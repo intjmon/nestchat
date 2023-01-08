@@ -1,8 +1,8 @@
-const socket = io('/'); // io() 는 index.hbs의 soceket.io.min.js에서 제공하는 함수
+//const socket = io('/'); // io() 는 index.hbs의 soceket.io.min.js에서 제공하는 함수
 // 루트 / 는 채팅방의 네임스페이스
 // 테임스페이스가 여러개로 만들수있고
 // 설정하면 버서에서도 WebSocketGateway에서 namespace를 설정해줘야한다.
-const socket = io('/linuxlinux'); // io() 는 index.hbs의 soceket.io.min.js에서 제공하는 함수
+const socket = io('/chattings'); // io() 는 index.hbs의 soceket.io.min.js에서 제공하는 함수
 
 const getElementById = (id) => document.getElementById(id) || null;
 
