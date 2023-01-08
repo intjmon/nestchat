@@ -6,6 +6,7 @@ const socket = io('/chattings'); // io() 는 index.hbs의 soceket.io.min.js에�
 
 const getElementById = (id) => document.getElementById(id) || null;
 
+// DOM 요소 가져오기
 const helloStrangerElement = getElementById('hello_stranger');
 const chattingBoxElement = getElementById('chatting_box');
 const formElement = getElementById('chat_form');
@@ -16,29 +17,51 @@ const handleSubmit = (event) => {
   const inputValue = event.target.elements[0].value; // formElement[0]은 input 태그를 의미
   if (inputValue !== '') {
     socket.emit('submit_chat', inputValue); // send_msg 이벤트를 발생시키고 서버로 데이터를 전송
-    drawChatting(`me: ${inputValue}`);
+    drawNewChat(`me: ${inputValue}`);
     event.target.elements[0].value = '';
   }
 };
 
-socket.on('new_chat', (msg) => { // user_connected 이벤트를 받으면 실행
-  //  console.log(`${username} is connected`);
-  console.log('msg:', msg);
-  if (msg.chat !== '') {
-    drawChatting(`[${msg.username}: ${msg.chat}]`);
+socket.on('new_chat', (data) => { // user_connected 이벤트를 받으면 실행
+  const { username, chat } = data;
+  console.log(`${username}: ${chat}`);
+  if (chat !== '') {
+    drawNewChat(`[${username}: ${chat}]`);
   }
 });
 
-socket.on('user_connected', (username) => { // user_connected 이벤트를 받으면 실행
-  console.log(`${username} is connected`);
+socket.on('disconnect_user', (username) => {
+  drawNewChat(`${username}: disconnected`);
 });
+
+socket.on('user_connected', (username) => { // user_connected 이벤트를 받으면 실행
+  //console.log(`${username} is connected`);
+  drawNewChat(`${username}: connected!`);
+});
+
 // 화며에 그려주기 함수
 const drawHelloStranger = (username) =>
   (helloStrangerElement.innerText = `Hello ${username} :)`);
 
-const drawChatting = (message) => {
+/*
+const drawNewChat = (message, isMe = false) => {
+const wrapperChatBox = document.createElement('div');
+wrapperChatBox.classNAme = 'clearfix';
+let chatBox;
+if (!isMe) {
+  chatBox = `<div class="bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg clear-fix break-all"> ${message} </div>`;
+} else {
+  chatBox = `<div class="bg-white w-3/4 ml-auto mr-4 my-2 p-2 rounded-lg clear-fix break-all"> ${message} </div>`;
+}
+wrapperChatBox.innerHTML = chatBox;
+chattingBoxElement.append(wrapperChatBox);
+};
+*/
+const drawNewChat = (message, isMe = false) => {
   const wrapperChatBox = document.createElement('div');
-  const chatBox = ` <div> ${message} </div>`;
+  wrapperChatBox.classNAme = 'clearfix';
+  let chatBox;
+  chatBox = `<div> ${message} </div>`;
   wrapperChatBox.innerHTML = chatBox;
   chattingBoxElement.append(wrapperChatBox);
 };
