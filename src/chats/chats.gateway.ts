@@ -49,4 +49,15 @@ export class ChatsGateway
     socket.broadcast.emit('user_connected', username); // 모든 사용자에게 브로드캐스팅
     return username;
   }
+
+  @SubscribeMessage('submit_chat') // new_user라는 이벤트를 받으면 handleNewUser 함수를 실행
+  handleSubmitChat(
+    @MessageBody() chat: string,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    socket.broadcast.emit('new_chat', {
+      chat,
+      username: socket.id,
+    }); // 모든 사용자에게 브로드캐스팅
+  }
 }
