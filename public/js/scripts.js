@@ -10,7 +10,10 @@ const helloStrangerElement = getElementById('hello_stranger');
 const chattingBoxElement = getElementById('chatting_box');
 const formElement = getElementById('chat_form');
 
-// 
+socket.on('user_connected', (username) => { // user_connected 이벤트를 받으면 실행
+  console.log(`${username} is connected`);
+});
+// 화며에 그려주기 함수
 const drawHelloStranger = (username) =>
   (helloStrangerElement.innerText = `Hello ${username} :)`);
 
